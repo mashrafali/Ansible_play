@@ -1,0 +1,10 @@
+<network>
+  <name>staging</name>
+  <bridge name="staging0"/>
+  <forward mode="nat"/>
+  <ip address="10.11.12.13" netmask="255.255.255.0">
+    <dhcp>
+      <range start="10.11.12.100" end="10.11.12.254"/>
+    </dhcp>
+  </ip>
+</network>

@@ -1,0 +1,5 @@
+# Jijna Feed file
+
+vm_name: vm-staging-01
+vm_mem: 1024
+vm_vcpu: 1

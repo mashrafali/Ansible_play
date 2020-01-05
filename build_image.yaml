@@ -1,0 +1,105 @@
+## building OS image to KVM host
+---
+- hosts: Ansible-Node-1.myhome.net
+  gather_facts: yes
+  remote_user: root
+  vars_files: 
+    - /root/playbooks/packages.yaml
+    - /root/playbooks/jinja-feed.yaml
+
+  tasks:
+    - name: Updating target hosts systems
+      package:
+        name: '*'
+        state: latest
+
+    - name: Cleaning unused dependencies
+      package:
+        autoremove: yes
+        state: absent
+
+    - name: Installing required packages
+      package: 
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ packages }}"
+
+    - name: starting required services
+      service:
+        name: "{{ item }}"
+        state: started
+      loop: "{{ services }}"
+
+    - name: Create remote VM-images directory
+      file:
+        path: /vm-images
+        state: directory
+        mode: '0755'
+
+    - name: Copying over VM image
+      copy:
+        src: "/root/images/{{ os_image  }}"
+        dest: "/vm-images/{{ os_image  }}"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Generating Host SSH Keys
+      command : "ssh-keygen -t rsa -N '' -f /root/.ssh/id_rsa"
+      args: 
+        creates: /root/.ssh/id_rsa
+
+    - name: Customizing OS image
+      shell: |
+         virt-customize -a "/vm-images/{{ os_image }}" --root-password password:equiinfra --timezone "Africa/Cairo" --uninstall cloud-init,NetworkManager --selinux-relabel
+#        virt-customize -a "/vm-images/{{ os_image }}" --ssh-inject root:file:/root/.ssh/id_rsa.pub
+      register: fileout
+      tags: fileout 
+
+    - name: Printing Customization results
+      debug: msg="{{ fileout.stdout_lines }}"
+
+    - name: creating staging network
+      virt_net:
+        command: define
+        name: staging
+        state: active
+        xml: '{{ lookup("template","/root/playbooks/net-template.j2") }}'
+
+    - name: Building VM
+      virt:
+        command: define
+        name: "{{ vm_name }}"
+        xml: '{{ lookup("template","/root/playbooks/vm-template.j2") }}'
+
+    - name: starting VM
+      virt:
+        command: define
+        name: "{{ vm_name }}"
+        state: running
+
+    - name: Preparing to fetch VM IP
+      file:
+        path: /tmp/fetchip-{{ vm_name }}
+        state: touch
+        mode: 0755
+
+    - name: Building IP fetch method.
+      lineinfile:
+        path: /tmp/fetchip-{{ vm_name }}
+        line: virsh net-dhcp-leases --network staging | grep `virsh dumpxml {{ vm_name }} | grep "mac address" | cut -d"'" -f2` | awk '{print $5}' | cut -d "/" -f1
+
+    - name: Waiting for VM to catch ip configuration
+      command : bash /tmp/fetchip-{{ vm_name }}
+      register: vmip
+      until: vmip.stdout_lines|length > 0
+      retries: 30
+      delay: 3
+    - debug:
+        msg: "{{vmip}}|length"
+
+    - name: Fetching VM Allocated IP Address
+      debug:
+        msg: "Allocated IP for {{ vm_name }} : {{ vmip.stdout_lines }}"
+
+    - set_fact: vm_alocated_ip="{{ vmip.stdout_lines }}"

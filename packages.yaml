@@ -1,0 +1,19 @@
+os_image: rhel-server-7.7-update-1-x86_64-kvm.qcow2
+
+packages:
+  - qemu-kvm 
+  - qemu-img 
+  - virt-manager 
+  - libvirt 
+  - libvirt-python 
+  - libvirt-client 
+  - virt-install 
+  - virt-viewer 
+  - bridge-utils
+  - libguestfs
+  - libguestfs-tools
+  - nano
+  - redhat-lsb-core
+
+services:
+  - libvirtd

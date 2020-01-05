@@ -1,0 +1,29 @@
+## testing yaml
+---
+- hosts: Ansible-Node-1.myhome.net
+  gather_facts: yes
+  remote_user: root
+  vars_files:
+    - /root/playbooks/packages.yaml
+    - /root/playbooks/jinja-feed.yaml
+  
+  tasks:
+    - name: Preparing to fetch VM IP
+      file:
+        path: /tmp/fetchip-{{ vm_name }}
+        state: touch
+        mode: 0755
+    - name: Building IP fetch method.
+      lineinfile:
+        path: /tmp/fetchip-{{ vm_name }}
+        line: virsh net-dhcp-leases --network staging | grep `virsh dumpxml {{ vm_name }} | grep "mac address" | cut -d"'" -f2` | awk '{print $5}' | cut -d "/" -f1
+    - name: Waiting for VM to catch ip configuration
+      command : bash /tmp/fetchip-{{ vm_name }}
+      retries: 30
+      delay: 3
+      register: vmip
+      until: vmip is defined
+    - name: Fetching VM Allocated IP Address
+      debug:
+        msg: "Allocated IP for {{ vm_name }} : {{ vmip.stdout_lines }}"
+    - set_fact: vm_alocated_ip="{{ vmip.stdout_lines }}"
