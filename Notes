@@ -2,3 +2,12 @@
 
 $ ansible all -m setup --tree <dir>
 - Json Facts files will be generated, can be parsed with jq
+
+## MODULES YOU SHOULD KNOW
+
+- ping
+- setup
+- file
+- copy
+- lineinfile
+- get_url
