@@ -1,2 +1,5 @@
 This repo is for Ansible Playbooks Learning & testing
 Can be used for temp dumps and Playgrounds :) 
+
+
+## export PS1="\[\033[36m\]\u\[\033[m\]@${HOSTNAME%%.*}\[\033[32m\] \[\033[33;1m\]\w\[\033[m\] (\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)) \$ "
