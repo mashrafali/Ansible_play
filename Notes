@@ -12,3 +12,5 @@ $ ansible all -m setup --tree <dir>
 - copy
 - lineinfile
 - get_url
+- archive
+- unarchive
