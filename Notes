@@ -1,10 +1,8 @@
 ###To Add nodes Facts to dir
-
 $ ansible all -m setup --tree <dir>
 - Json Facts files will be generated, can be parsed with jq
 
-## MODULES YOU SHOULD KNOW
-
+## MODULES YOU SHOULD KNOW:
 - ping
 - setup
 - command
@@ -14,3 +12,12 @@ $ ansible all -m setup --tree <dir>
 - get_url
 - archive
 - unarchive
+- user
+- group
+- package & yum & apt
+- service
+
+## ansible commad Flags:
+* -P   poll interval
+* -B   timeout
+* -f   forks
