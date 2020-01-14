@@ -6,7 +6,7 @@ REPOS_DIR=/root
 clear
 for dir in `ls -d $REPOS_DIR/*/`
 do
-  for i in {1..10}
+  for i in {1..30}
   do
     echo -n "-"
   done
