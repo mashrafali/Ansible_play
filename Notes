@@ -5,6 +5,7 @@ $ ansible all -m setup --tree <dir>
 ## MODULES YOU SHOULD KNOW:
 - ping
 - setup
+- package & yum & apt
 - command
 - file
 - copy
@@ -14,8 +15,8 @@ $ ansible all -m setup --tree <dir>
 - unarchive
 - user
 - group
-- package & yum & apt
 - service
+- git
 
 ## ansible commad Flags:
 * -P   poll interval
