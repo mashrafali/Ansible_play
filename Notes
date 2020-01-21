@@ -22,3 +22,4 @@ $ ansible all -m setup --tree <dir>
 * -B   timeout
 * -f   forks
 * -b   Become sudo assigned user Default is root
+** -m module and -a is arguments for that module
