@@ -21,3 +21,4 @@ $ ansible all -m setup --tree <dir>
 * -P   poll interval
 * -B   timeout
 * -f   forks
+* -b   Become sudo assigned user Default is root
