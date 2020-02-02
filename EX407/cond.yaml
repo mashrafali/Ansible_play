@@ -1,0 +1,10 @@
+---
+- hosts: nodes
+  become: yes
+  tasks:
+    - name: edit index
+      lineinfile:
+        path: /var/www/html/index.html
+        line: "I am BACK!"
+      when:
+        - ansible_hostname == "node1"

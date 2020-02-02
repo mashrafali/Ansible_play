@@ -1,0 +1,14 @@
+---
+- hosts: control
+  tasks:
+    - name : get file
+      block:
+        - get_url: 
+            url: "http://node1/index.html"
+            dest: "/tmp/indexfile"
+      rescue:
+        - debug:
+            msg: "File cannot be found"
+      always:
+        - debug:
+            msg: "play done"

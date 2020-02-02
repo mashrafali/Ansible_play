@@ -1,0 +1,11 @@
+---
+- hosts: control
+  tasks:
+    - name: get files
+      get_url:
+        url: "http://{{item}}/index.html"
+        dest: "/tmp/{{item}}"
+      ignore_errors: yes
+      with_items:
+        - node1
+        - node2
