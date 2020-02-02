@@ -19,6 +19,7 @@ $ ansible all -m setup --tree <dir>
 - git
 
 ## ansible commad Flags:
+* --limit   limit hostname for ansible-playbook
 * -P   poll interval
 * -B   timeout
 * -f   forks
