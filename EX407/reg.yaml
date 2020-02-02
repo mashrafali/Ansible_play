@@ -1,0 +1,14 @@
+---
+- hosts: nodes
+  tasks:
+    - name: crate file
+      file:
+        path: /tmp/newfile
+        state: touch
+      register: output
+    - debug:
+        msg: "register output is {{output}}"
+    - name: edit file
+      lineinfile:
+        path: /tmp/newfile
+        line: "{{output.uid}}"
