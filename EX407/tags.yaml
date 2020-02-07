@@ -1,0 +1,20 @@
+---
+- hosts: nodes
+  become: yes
+  tasks:
+    - name: deploy app binary
+      copy:
+        src: /root/EX407/hello.sh
+        dest: /root/hello.sh
+      tags:
+        - hello
+  
+- hosts: nodes
+  become: yes
+  tasks:
+    - name: deploy another script
+      copy: 
+        src: /root/EX407/another_hello.sh
+        dest: /root/another_hello.sh
+      tags:
+        - another_hello

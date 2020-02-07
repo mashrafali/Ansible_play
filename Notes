@@ -25,3 +25,4 @@ $ ansible all -m setup --tree <dir>
 * -f   forks
 * -b   Become sudo assigned user Default is root
 ** -m module and -a is arguments for that module
+** --tags  and   --skip-tags   when tagging portions of the yaml tasks
