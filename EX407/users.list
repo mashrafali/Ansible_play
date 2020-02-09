@@ -1,0 +1,21 @@
+systems:
+  - hamada1
+  - hamada2
+  - hamada3
+  - hamada4
+  - hamada5
+  - hamada6
+network:
+  - hoda1
+  - hoda2
+  - hoda3
+  - hoda4
+  - hoda5
+  - hoda6
+hr:
+  - bor3y1
+  - bor3y2
+  - bor3y3
+  - bor3y4
+  - bor3y5
+  - bor3y6

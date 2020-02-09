@@ -1,0 +1,13 @@
+---
+- hosts: nodes
+  vars:
+    some_file: /root/somefile.txt
+  tasks:
+  - name: create file
+    file:
+      path: "{{some_file}}"
+      state: touch
+  - name: generate file
+    lineinfile:
+      path: "{{some_file}}"
+      line: "{{groups.all|join(' ')}}"    ## \n works for newline seperator

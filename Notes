@@ -26,3 +26,8 @@ $ ansible all -m setup --tree <dir>
 * -b   Become sudo assigned user Default is root
 ** -m module and -a is arguments for that module
 ** --tags  and   --skip-tags   when tagging portions of the yaml tasks
+
+
+## Magic Vars:
+- hostvars                  #Inheriting facts
+- groups                    #Inheriting inv group   ex : {{groups['webservers']}}

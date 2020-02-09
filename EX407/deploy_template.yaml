@@ -1,0 +1,7 @@
+---
+  Hosts: nodes
+  Tasks:
+  - name: deploy template file
+    template: 
+      src: /root/EX407/network.j2
+      dest: /root/IPADDRESS
