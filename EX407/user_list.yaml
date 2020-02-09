@@ -1,0 +1,17 @@
+---
+- hosts: nodes
+  vars:
+    userlist: /root/list_of_users
+  tasks:
+  - name: create file
+    file:
+      path: "{{userlist}}"
+      state: touch
+  - name: list users
+    lineinfile:
+      path: "{{userlist}}"
+      line: "{{item}}"
+    with_items:
+      - "{{systems}}"
+      - "{{network}}"
+      - "{{hr}}"
