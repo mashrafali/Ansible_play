@@ -31,3 +31,23 @@ $ ansible all -m setup --tree <dir>
 ## Magic Vars:
 - hostvars                  #Inheriting facts
 - groups                    #Inheriting inv group   ex : {{groups['webservers']}}
+
+## Facts
+- in remote nodes, ansible looks for custom facts in "/etc/ansible/facts.d/" with files of .fact extension
+- custom facts written in ini format
+
+EX:     /etc/ansible/facts.d/node_info.fact
+{{
+[location]
+visor=workstation
+type=vm
+site=laptop
+}}
+
+- with setup module command, can be filiterd with ansible_local to view customs
+    EX: ansible nodes -m setup -a "filter=ansible_local"
+
+## ROLES
+- variables in "vars" directory will have priority and precedence over inventory variables.
+- variables in "defaults" directory will have the lowest priority even less than inventory variables.
+- cli passed variables has the highest most precedence.
