@@ -44,10 +44,10 @@ type=vm
 site=laptop
 }}
 
-- with setup module command, can be filiterd with ansible_local to view customs
+- with setup module command, can be filtered with ansible_local to view customs
     EX: ansible nodes -m setup -a "filter=ansible_local"
 
 ## ROLES
 - variables in "vars" directory will have priority and precedence over inventory variables.
 - variables in "defaults" directory will have the lowest priority even less than inventory variables.
-- cli passed variables has the highest most precedence.
+- cli passed variables have the highest most precedence.

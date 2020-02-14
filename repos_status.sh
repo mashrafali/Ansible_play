@@ -12,6 +12,7 @@ do
   done
   echo;echo -e "\033[41mFor Git Repo : $dir\033[m"
   cd $dir
+  git fetch
   git status
   echo;echo -e "\033[36m--> Remote Pipes:\033[m"
   git remote -v
