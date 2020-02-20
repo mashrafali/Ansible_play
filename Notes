@@ -51,3 +51,22 @@ site=laptop
 - variables in "vars" directory will have priority and precedence over inventory variables.
 - variables in "defaults" directory will have the lowest priority even less than inventory variables.
 - cli passed variables have the highest most precedence.
+
+## GALAXY
+- ansible-galaxy:
+    init <name>    : create empty role structure in working dir
+    search <name>  : searching for role in galaxy
+    install <name> : installs role from galaxy and it's dependencie roles
+    remove <name>  : remove this role only neglecting removal of dependencie roles
+
+## VAULT
+- ansible-vault:
+    encrypt <file> : encrypts file using a given password
+    edit <file>    : Edits file providing the password of encryption
+    view <file>    : cats file providing the password of encryption
+    decrypt <file> : Decrypts the file providing the password of encryption
+    encrypt_string <string> -n var : encryts string and feeds the variable with this encryption, asks for pass.
+
+* --vault-id name@Password_File_to_use (which contains the password used for encryption OR the key to use for decryption run
+
+* no_log  module parameter (in same level of module indent); prevents sensitive log output

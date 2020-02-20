@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: yes
+  vars_files:
+    - /root/EX407/secure
+  tasks:
+  - name: deploy hagat keda
+    shell: echo "{{message}}" > /root/deployed
+    no_log: yes
